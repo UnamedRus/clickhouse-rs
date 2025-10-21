@@ -4,8 +4,8 @@ pub(crate) use ser::serialize_with_validation;
 
 pub(crate) mod validation;
 
-mod de;
-mod ser;
+pub mod de;
+pub mod ser;
 #[cfg(test)]
 mod tests;
 mod utils;

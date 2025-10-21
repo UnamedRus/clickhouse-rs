@@ -21,6 +21,8 @@ use tokio::sync::RwLock;
 
 pub mod error;
 pub mod insert;
+pub mod rowbinary;
+pub mod bytes_ext;
 #[cfg(feature = "inserter")]
 pub mod inserter;
 pub mod query;
@@ -29,7 +31,6 @@ pub mod sql;
 #[cfg(feature = "test-util")]
 pub mod test;
 
-mod bytes_ext;
 mod compression;
 mod cursors;
 mod headers;
@@ -38,7 +39,6 @@ mod request_body;
 mod response;
 mod row;
 mod row_metadata;
-mod rowbinary;
 #[cfg(feature = "inserter")]
 mod ticks;
 

@@ -21,7 +21,7 @@ use std::{convert::TryFrom, str};
 /// It accepts _a reference to_ a byte slice because it somehow leads to a more
 /// performant generated code than `(&[u8]) -> Result<(T, usize)>` and even
 /// `(&[u8], &mut Option<T>) -> Result<usize>`.
-pub(crate) fn deserialize_row<'data, 'cursor, T: Deserialize<'data> + Row>(
+pub fn deserialize_row<'data, 'cursor, T: Deserialize<'data> + Row>(
     input: &mut &'data [u8],
     metadata: Option<&'cursor RowMetadata>,
 ) -> Result<T> {

@@ -2,7 +2,7 @@ use bytes::{Bytes, BytesMut};
 use std::cell::{Cell, UnsafeCell};
 
 #[derive(Default)]
-pub(crate) struct BytesExt {
+pub struct BytesExt {
     // The only reason we use `UnsafeCell` here is to provide `extend_by_ref` method
     // in the sound way. After stabilization of the polonius borrow checker, it
     // will be replaced with simple `Bytes`. See `RowCursor::next()` for details.
@@ -17,20 +17,20 @@ pub(crate) struct BytesExt {
 impl BytesExt {
     /// Returns a remaining slice of bytes.
     #[inline(always)]
-    pub(crate) fn slice(&self) -> &[u8] {
+    pub fn slice(&self) -> &[u8] {
         &self.bytes()[self.cursor.get()..]
     }
 
     /// Returns the number of remaining bytes.
     #[inline(always)]
-    pub(crate) fn remaining(&self) -> usize {
+    pub fn remaining(&self) -> usize {
         self.bytes().len() - self.cursor.get()
     }
 
     /// Overrides the number of remaining bytes by moving the cursor.
     /// Note: it's valid to call this method while holding `slice()` reference.
     #[inline(always)]
-    pub(crate) fn set_remaining(&self, n: usize) {
+    pub fn set_remaining(&self, n: usize) {
         self.cursor.set(self.bytes().len() - n);
     }
 
@@ -43,7 +43,7 @@ impl BytesExt {
 
     /// Adds the provided chunk into available bytes.
     #[inline(always)]
-    pub(crate) fn extend(&mut self, chunk: Bytes) {
+    pub fn extend(&mut self, chunk: Bytes) {
         *self.bytes.get_mut() = merge_bytes(self.slice(), chunk);
         self.cursor.set(0);
     }
